@@ -5,9 +5,9 @@ public class Dot extends Object {
     int x, y;
     int status;
 
-    private static final int STATUS_ON = 1;
-    private static final int STATUS_OFF = 0;
-    private static final int STATUS_IN = 9;
+    public static final int STATUS_ON = 1;
+    public static final int STATUS_OFF = 0;
+    public static final int STATUS_IN = 9;
 
     public Dot(int x, int y) {
         this.x = x;
