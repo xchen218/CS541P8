@@ -2,12 +2,16 @@ package com.xchen218.cs541p8;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
 public class Playground extends SurfaceView {
 
+    private static int WIDTH = 100;
     private static final int ROW = 10;
     private static final int COL = 10;
     private static final int BLOCKS = 10;
@@ -32,7 +36,33 @@ public class Playground extends SurfaceView {
     }
     private void redraw(){
         Canvas c = getHolder().lockCanvas();
-        c.drawColor(Color.CYAN);
+        c.drawColor(Color.LTGRAY);
+        Paint paint = new Paint();
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        for(int i = 0; i < ROW; i++){
+            int offset = 0;
+            if(i%2 == 1){
+                offset = WIDTH/2;
+            }
+            for(int j = 0; j < COL; j++){
+                    Dot one = getDot(j, i);
+                    switch (one.getStatus()){
+                        case Dot.STATUS_OFF:
+                            paint.setColor(0xFFEEEEEE);
+                            break;
+                        case Dot.STATUS_ON:
+                            paint.setColor(0xFFFFAA00);
+                            break;
+                        case Dot.STATUS_IN:
+                            paint.setColor(0xFFFF0000);
+                            break;
+                        default:
+                            break;
+                    }
+                    c.drawOval(new RectF(one.getX() * WIDTH + offset, one.getY() * WIDTH,
+                            (one.getX()+1) * WIDTH + offset, (one.getY()+1)*WIDTH), paint);
+            }
+        }
         getHolder().unlockCanvasAndPost(c);
     }
 
@@ -44,7 +74,8 @@ public class Playground extends SurfaceView {
 
         @Override
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
+            WIDTH = width/(COL+1);
+            redraw();
         }
 
         @Override
@@ -62,8 +93,12 @@ public class Playground extends SurfaceView {
         cat = new Dot(4,5);
         getDot(4,5).setStatus(Dot.STATUS_IN);
         for(int i = 0; i < BLOCKS;){
-            if(getDot(0, 0).getStatus() == Dot.STATUS_OFF){
-                
+            int x = (int) ((Math.random() * 1000) % COL);
+            int y = (int) ((Math.random() * 1000) % ROW);
+            if(getDot(x, y).getStatus() == Dot.STATUS_OFF){
+                getDot(x, y).setStatus(Dot.STATUS_ON);
+                i++;
+                //Log.d("block", String.valueOf(i));
             }
         }
     }
