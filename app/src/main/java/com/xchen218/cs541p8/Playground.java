@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.inputmethodservice.Keyboard;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -13,7 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 public class Playground extends SurfaceView implements View.OnTouchListener {
-
+    int k = 1;
     private static int WIDTH = 100;
     private static final int ROW = 10;
     private static final int COL = 10;
@@ -21,6 +22,7 @@ public class Playground extends SurfaceView implements View.OnTouchListener {
 
     private Dot matrix[][];
     private Dot cat;
+
     public Playground(Context context) {
         super(context);
         getHolder().addCallback(callback);
@@ -37,6 +39,74 @@ public class Playground extends SurfaceView implements View.OnTouchListener {
     private Dot getDot(int x, int y){
         return matrix[y][x];
     }
+
+    private boolean isAtEdge(Dot d){
+        if(d.getX() * d.getY() == 0 || d.getX() + 1 == COL || d.getY() + 1 == ROW){
+            return true;
+        }
+        return false;
+    }
+
+    private Dot getNeighbor(Dot d, int dir){
+        switch (dir){
+            case 1:
+                return getDot(d.getX() - 1, d.getY());
+            case 2:
+                if(d.getY() % 2 == 0){
+                    return getDot(d.getX() - 1, d.getY() - 1);
+                }else{
+                    return getDot(d.getX(), d.getY() - 1);
+                }
+            case 3:
+                if(d.getY() % 2 == 0){
+                    return getDot(d.getX(), d.getY() - 1);
+                }else{
+                    return getDot(d.getX() + 1, d.getY() - 1);
+                }
+            case 4:
+                return getDot(d.getX() + 1, d.getY());
+            case 5:
+                if(d.getY() % 2 == 0){
+                    return getDot(d.getX(), d.getY() + 1);
+                }else{
+                    return getDot(d.getX() + 1, d.getY() + 1);
+                }
+            case 6:
+                if(d.getY() % 2 == 0){
+                    return getDot(d.getX() - 1, d.getY() + 1);
+                }else{
+                    return getDot(d.getX(), d.getY() + 1);
+                }
+            default:
+                break;
+        }
+        return null;
+
+    }
+
+    private int getDistance(Dot d, int dir){
+        int distance = 0;
+        Dot curr = d, next;
+        while(true){
+            next = getNeighbor(curr, dir);
+            if(next.getStatus() == Dot.STATUS_ON){
+                return distance * -1;
+            }
+            if(isAtEdge(next)){
+                return distance + 1;
+            }
+            distance ++;
+            curr = next;
+        }
+        //return 0;
+    }
+
+    private void move(Dot d){
+        d.setStatus(Dot.STATUS_IN);
+        getDot(cat.getX(), cat.getY());
+        cat.setXY(d.getX(), d.getY());
+    }
+
     private void redraw(){
         Canvas c = getHolder().lockCanvas();
         c.drawColor(Color.LTGRAY);
@@ -118,6 +188,8 @@ public class Playground extends SurfaceView implements View.OnTouchListener {
                 x = (int) ((event.getX()-WIDTH/2)/WIDTH);
             }
             if(x + 1 > COL || y + 1 > ROW){
+                //getNeighbor(cat, k).setStatus(Dot.STATUS_IN);
+                //k++;
                 initGame();
             }else{
                 getDot(x, y).setStatus(Dot.STATUS_ON);
