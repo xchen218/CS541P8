@@ -13,6 +13,8 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.Vector;
+
 public class Playground extends SurfaceView implements View.OnTouchListener {
     int k = 1;
     private static int WIDTH = 100;
@@ -101,10 +103,37 @@ public class Playground extends SurfaceView implements View.OnTouchListener {
         //return 0;
     }
 
-    private void move(Dot d){
+    private void moveto(Dot d){
         d.setStatus(Dot.STATUS_IN);
         getDot(cat.getX(), cat.getY());
         cat.setXY(d.getX(), d.getY());
+    }
+
+    private void move(){
+        if(isAtEdge(cat)){
+            lose();
+            return;
+        }
+        Vector<Dot> available = new Vector<>();
+        for(int i = 1; i < 7; i++){
+            Dot n = getNeighbor(cat, i);
+            if(n.getStatus() == Dot.STATUS_OFF){
+                available.add(n);
+            }
+        }
+        if(available.size() == 0){
+            win();
+        }else{
+            moveto(available.get(0));
+        }
+    }
+
+    private void lose(){
+        Toast.makeText(getContext(), "You lose! The prisoner escaped!", Toast.LENGTH_SHORT).show();
+    }
+
+    private void win(){
+        Toast.makeText(getContext(), "You win! The prisoner is caught!", Toast.LENGTH_SHORT).show();
     }
 
     private void redraw(){
@@ -191,8 +220,9 @@ public class Playground extends SurfaceView implements View.OnTouchListener {
                 //getNeighbor(cat, k).setStatus(Dot.STATUS_IN);
                 //k++;
                 initGame();
-            }else{
+            }else if(getDot(x, y).getStatus() == Dot.STATUS_OFF){
                 getDot(x, y).setStatus(Dot.STATUS_ON);
+                move();
             }
             redraw();
         }
