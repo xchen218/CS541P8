@@ -13,6 +13,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 public class Playground extends SurfaceView implements View.OnTouchListener {
@@ -20,7 +21,8 @@ public class Playground extends SurfaceView implements View.OnTouchListener {
     private static int WIDTH = 100;
     private static final int ROW = 10;
     private static final int COL = 10;
-    private static final int BLOCKS = 10;
+    private static final int BLOCKS = 15;
+    //boolean justInit;
 
     private Dot matrix[][];
     private Dot cat;
@@ -88,6 +90,9 @@ public class Playground extends SurfaceView implements View.OnTouchListener {
 
     private int getDistance(Dot d, int dir){
         int distance = 0;
+        if(isAtEdge(d)){
+            return 1;
+        }
         Dot curr = d, next;
         while(true){
             next = getNeighbor(curr, dir);
@@ -105,7 +110,7 @@ public class Playground extends SurfaceView implements View.OnTouchListener {
 
     private void moveto(Dot d){
         d.setStatus(Dot.STATUS_IN);
-        getDot(cat.getX(), cat.getY());
+        getDot(cat.getX(), cat.getY()).setStatus(Dot.STATUS_OFF);
         cat.setXY(d.getX(), d.getY());
     }
 
@@ -115,21 +120,56 @@ public class Playground extends SurfaceView implements View.OnTouchListener {
             return;
         }
         Vector<Dot> available = new Vector<>();
+        Vector<Dot> positive = new Vector<>();
+        HashMap<Dot, Integer> pl = new HashMap<Dot, Integer>();
         for(int i = 1; i < 7; i++){
             Dot n = getNeighbor(cat, i);
             if(n.getStatus() == Dot.STATUS_OFF){
                 available.add(n);
+                pl.put(n, i);
+                if(getDistance(n, i) > 0){
+                    positive.add(n);
+                }
             }
         }
         if(available.size() == 0){
             win();
-        }else{
+        }else if(available.size() == 1){
             moveto(available.get(0));
+        }/*else if(justInit){
+            int r = (int) ((Math.random() * 1000) % available.size());
+            moveto(available.get(r));
+        }*/else{
+            Dot opt = getDot(cat.getX(), cat.getY());
+            if(positive.size() != 0){
+                Log.d("1", "go");
+                int min = 9999;
+                for(int i = 0; i < positive.size(); i++){
+                    int a = getDistance(positive.get(i), pl.get(positive.get(i)));
+                    if(a < min) {
+                        min = a;
+                        opt = positive.get(i);
+                    }
+                }
+            }else{
+                Log.d("2", "evade");
+                int max = 0;
+                for (int i = 0; i < available.size(); i++){
+                    int b = getDistance(available.get(i), pl.get(available.get(i)));
+                    if(b < max){
+                        max = b;
+                        opt = available.get(i);
+
+                    }
+                }
+            }
+            moveto(opt);
         }
     }
 
     private void lose(){
         Toast.makeText(getContext(), "You lose! The prisoner escaped!", Toast.LENGTH_SHORT).show();
+        getDot(cat.getX(), cat.getY()).setStatus(Dot.STATUS_OFF);
     }
 
     private void win(){
@@ -203,6 +243,7 @@ public class Playground extends SurfaceView implements View.OnTouchListener {
                 //Log.d("block", String.valueOf(i));
             }
         }
+        //justInit = true;
     }
 
     @Override
