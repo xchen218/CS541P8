@@ -1,0 +1,148 @@
+commit 5a00ad68274831d67da7e03e0862ca447ff0838d
+Author: xchen218 <xchen218@binghamton.edu>
+Date:   Sun May 12 17:32:37 2019 -0400
+
+    improve
+
+ .../main/java/com/xchen218/cs541p8/Playground.java | 47 ++++++++++++++++++++--
+ 1 file changed, 44 insertions(+), 3 deletions(-)
+
+commit ca145fb2f7c2fd533439df2637f3b2846843a819
+Author: xchen218 <xchen218@binghamton.edu>
+Date:   Sun May 12 16:27:23 2019 -0400
+
+    logic
+
+ .../main/java/com/xchen218/cs541p8/Playground.java | 34 ++++++++++++++++++++--
+ 1 file changed, 32 insertions(+), 2 deletions(-)
+
+commit e2c1bef88e8a5361b85124f182eec226e766896a
+Author: xchen218 <xchen218@binghamton.edu>
+Date:   Fri May 10 10:03:39 2019 -0400
+
+    move
+
+ .../main/java/com/xchen218/cs541p8/Playground.java | 74 +++++++++++++++++++++-
+ 1 file changed, 73 insertions(+), 1 deletion(-)
+
+commit fa56069ec737a174633961fa74cb60000f0cef8b
+Author: xchen218 <xchen218@binghamton.edu>
+Date:   Wed May 8 14:38:03 2019 -0400
+
+    touch1
+
+ .../main/java/com/xchen218/cs541p8/Playground.java | 28 ++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
+
+commit f1f1a907428893cd73a7d24b7023f43162aa2f00
+Author: xchen218 <xchen218@binghamton.edu>
+Date:   Wed May 8 14:23:26 2019 -0400
+
+    elements
+
+ .../main/java/com/xchen218/cs541p8/Playground.java | 43 ++++++++++++++++++++--
+ 1 file changed, 39 insertions(+), 4 deletions(-)
+
+commit 06167b50a7c003b58cdff242251789f8ec49b154
+Author: xchen218 <xchen218@binghamton.edu>
+Date:   Wed May 8 13:21:40 2019 -0400
+
+    dots
+
+ app/src/main/java/com/xchen218/cs541p8/Dot.java    |  6 ++--
+ .../main/java/com/xchen218/cs541p8/Playground.java | 33 ++++++++++++++++++++++
+ 2 files changed, 36 insertions(+), 3 deletions(-)
+
+commit b56422eaa3b17fcb9ba9017d34f26b4588f57e97
+Author: xchen218 <xchen218@binghamton.edu>
+Date:   Sun May 5 23:37:58 2019 -0400
+
+    1.1
+
+ app/src/main/java/com/xchen218/cs541p8/Dot.java    | 46 ++++++++++++++++++++++
+ .../java/com/xchen218/cs541p8/MainActivity.java    |  3 +-
+ .../main/java/com/xchen218/cs541p8/Playground.java | 37 +++++++++++++++++
+ 3 files changed, 85 insertions(+), 1 deletion(-)
+
+commit 888fa066b4a9dd472b4176912baef0b6f7ce6ad5
+Author: xchen218 <xchen218@binghamton.edu>
+Date:   Sun May 5 23:20:50 2019 -0400
+
+    1
+
+ .gitignore                                         |  13 ++
+ .idea/codeStyles/Project.xml                       |  29 ++++
+ .idea/gradle.xml                                   |  15 ++
+ .idea/misc.xml                                     |  14 ++
+ .idea/runConfigurations.xml                        |  12 ++
+ .idea/vcs.xml                                      |   6 +
+ app/.gitignore                                     |   1 +
+ app/build.gradle                                   |  28 ++++
+ app/proguard-rules.pro                             |  21 +++
+ .../xchen218/cs541p8/ExampleInstrumentedTest.java  |  26 ++++
+ app/src/main/AndroidManifest.xml                   |  21 +++
+ .../java/com/xchen218/cs541p8/MainActivity.java    |  13 ++
+ .../res/drawable-v24/ic_launcher_foreground.xml    |  34 ++++
+ .../main/res/drawable/ic_launcher_background.xml   | 170 ++++++++++++++++++++
+ app/src/main/res/layout/activity_main.xml          |  19 +++
+ app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml |   5 +
+ .../res/mipmap-anydpi-v26/ic_launcher_round.xml    |   5 +
+ app/src/main/res/mipmap-hdpi/ic_launcher.png       | Bin 0 -> 2963 bytes
+ app/src/main/res/mipmap-hdpi/ic_launcher_round.png | Bin 0 -> 4905 bytes
+ app/src/main/res/mipmap-mdpi/ic_launcher.png       | Bin 0 -> 2060 bytes
+ app/src/main/res/mipmap-mdpi/ic_launcher_round.png | Bin 0 -> 2783 bytes
+ app/src/main/res/mipmap-xhdpi/ic_launcher.png      | Bin 0 -> 4490 bytes
+ .../main/res/mipmap-xhdpi/ic_launcher_round.png    | Bin 0 -> 6895 bytes
+ app/src/main/res/mipmap-xxhdpi/ic_launcher.png     | Bin 0 -> 6387 bytes
+ .../main/res/mipmap-xxhdpi/ic_launcher_round.png   | Bin 0 -> 10413 bytes
+ app/src/main/res/mipmap-xxxhdpi/ic_launcher.png    | Bin 0 -> 9128 bytes
+ .../main/res/mipmap-xxxhdpi/ic_launcher_round.png  | Bin 0 -> 15132 bytes
+ app/src/main/res/values/colors.xml                 |   6 +
+ app/src/main/res/values/strings.xml                |   3 +
+ app/src/main/res/values/styles.xml                 |  11 ++
+ .../java/com/xchen218/cs541p8/ExampleUnitTest.java |  17 ++
+ build.gradle                                       |  27 ++++
+ gradle.properties                                  |  15 ++
+ gradle/wrapper/gradle-wrapper.jar                  | Bin 0 -> 54329 bytes
+ gradle/wrapper/gradle-wrapper.properties           |   6 +
+ gradlew                                            | 172 +++++++++++++++++++++
+ gradlew.bat                                        |  84 ++++++++++
+ settings.gradle                                    |   1 +
+ 38 files changed, 774 insertions(+)
+
+commit eb1b18e20d92462a32491eb5ee0b3493c30b0d74
+Author: xchen218 <xchen218@binghamton.edu>
+Date:   Fri May 3 06:35:24 2019 -0400
+
+    readme1
+
+ README.md   |   2 ++
+ concept.jpg | Bin 0 -> 44891 bytes
+ 2 files changed, 2 insertions(+)
+
+commit ad5e8ef27ed29fe8d3c5e15c1e682be7926c0289
+Author: xchen218 <31324612+xchen218@users.noreply.github.com>
+Date:   Fri May 3 06:27:28 2019 -0400
+
+    Update README.md
+
+ README.md | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit d14f0193ca76b0884dcab0021bcf6c60661330f7
+Author: xchen218 <31324612+xchen218@users.noreply.github.com>
+Date:   Fri May 3 06:24:59 2019 -0400
+
+    Update README.md
+
+ README.md | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit c8d17d65b8f58d112cf625339a7fd6911b2e92f0
+Author: xchen218 <31324612+xchen218@users.noreply.github.com>
+Date:   Fri May 3 06:19:51 2019 -0400
+
+    Initial commit
+
+ README.md | 2 ++
+ 1 file changed, 2 insertions(+)
